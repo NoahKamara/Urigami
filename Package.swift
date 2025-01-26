@@ -4,17 +4,32 @@
 import PackageDescription
 
 let package = Package(
-    name: "urigami.s",
+    name: "urigami",
+    platforms: [.macOS(.v15)],
+    products: [
+        .library(name: "UrigamiKit", targets: ["UrigamiKit"]),
+        .executable(name: "urigami", targets: ["UrigamiCLI"])
+    ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.2.0"),
+        .package(url: "https://github.com/vapor/console-kit.git", from: "4.15.2"),
     ],
     targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
         .executableTarget(
-            name: "urigami.s",
+            name: "UrigamiCLI",
             dependencies: [
+                "UrigamiKit",
+                .product(name: "ConsoleKit", package: "console-kit"),
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
+            ],
+            swiftSettings: [
+                .unsafeFlags(["-enable-bare-slash-regex"])
+            ]
+        ),
+        .target(
+            name: "UrigamiKit",
+            swiftSettings: [
+                .unsafeFlags(["-enable-bare-slash-regex"])
             ]
         ),
     ]
