@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "urigami",
-    platforms: [.macOS(.v15)],
+    platforms: [.macOS(.v13)],
     products: [
         .library(name: "UrigamiKit", targets: ["UrigamiKit"]),
         .executable(name: "urigami", targets: ["UrigamiCLI"]),
@@ -24,6 +24,7 @@ let package = Package(
             ],
             swiftSettings: [
                 .unsafeFlags(["-enable-bare-slash-regex"]),
+                .unsafeFlags(["-whole-module-optimization", "-O"], .when(configuration: .release))
             ]
         ),
         .target(
