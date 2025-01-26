@@ -42,6 +42,7 @@ struct SetOpeningAppCommand: AsyncParsableCommand {
             "setting '\(app.name)' as default handler for \(input.kind!.displayName) '\(input.input)'"
         )
         try await app.set(rawValue: input.input, kind: input.kind!)
+        try console.output(app.detail(.none))
     }
 }
 

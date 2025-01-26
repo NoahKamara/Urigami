@@ -58,7 +58,7 @@ extension Application {
     
     public func set(opening url: URL, workspace: NSWorkspace = .shared) async throws {
         try await workspace
-            .setDefaultApplication(at: self.url, toOpenURLsWithScheme: url.path())
+            .setDefaultApplication(at: self.url, toOpenURLsWithScheme: url.scheme!)
     }
 }
 

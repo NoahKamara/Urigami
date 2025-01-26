@@ -96,6 +96,7 @@ public enum BundleTypeRole: String, Decodable {
     case viewer = "Viewer"
     case shell = "Shell"
     case quickLookGenerator = "QuickLookGenerator"
+    case none = "None"
 }
 
 public struct EquivalentTypes: Decodable {

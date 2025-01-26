@@ -15,7 +15,11 @@ public struct Application: CustomStringConvertible {
     /// The name of the application
     /// > the last path component without the extension
     public var name: String {
-        String(url.lastPathComponent.prefix(while: { $0 != "." }))
+        String(
+            url
+                .lastPathComponent
+                .prefix((url.lastPathComponent.count - url.pathExtension.count) + 1)
+        )
     }
 
     public let url: URL
