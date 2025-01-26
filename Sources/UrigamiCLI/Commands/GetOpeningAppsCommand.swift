@@ -1,5 +1,5 @@
 //
-//  OpensCommand.swift
+//  GetOpeningAppsCommand.swift
 //  urigami
 //
 //  Created by Noah Kamara on 26.01.2025.
@@ -8,7 +8,7 @@
 import ArgumentParser
 import UrigamiKit
 
-struct OpensCommand: ParsableCommand {
+struct GetOpeningAppsCommand: AsyncParsableCommand {
     static let configuration = CommandConfiguration(
         commandName: "opens",
         abstract: "find the default app(s) for the input"

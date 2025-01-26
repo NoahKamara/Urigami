@@ -9,7 +9,7 @@ import ArgumentParser
 import Foundation
 import UrigamiKit
 
-struct AppInfoCommand: ParsableCommand {
+struct AppInfoCommand: AsyncParsableCommand {
     static let configuration = CommandConfiguration(
         commandName: "appinfo",
         abstract: "Get information about an installed application"
