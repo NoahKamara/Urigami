@@ -8,7 +8,7 @@ let package = Package(
     platforms: [.macOS(.v15)],
     products: [
         .library(name: "UrigamiKit", targets: ["UrigamiKit"]),
-        .executable(name: "urigami", targets: ["UrigamiCLI"])
+        .executable(name: "urigami", targets: ["UrigamiCLI"]),
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.2.0"),
@@ -23,13 +23,13 @@ let package = Package(
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
             ],
             swiftSettings: [
-                .unsafeFlags(["-enable-bare-slash-regex"])
+                .unsafeFlags(["-enable-bare-slash-regex"]),
             ]
         ),
         .target(
             name: "UrigamiKit",
             swiftSettings: [
-                .unsafeFlags(["-enable-bare-slash-regex"])
+                .unsafeFlags(["-enable-bare-slash-regex"]),
             ]
         ),
     ]

@@ -17,10 +17,10 @@ extension ConsoleText: ConsoleRepresentable {
 
 extension Console {
     func output(_ content: some ConsoleRepresentable, newLine: Bool) {
-        self.output(content.consoleRepresentation(), newLine: newLine)
+        output(content.consoleRepresentation(), newLine: newLine)
     }
-    
+
     func output(_ content: some ConsoleRepresentable) {
-        self.output(content.consoleRepresentation())
+        output(content.consoleRepresentation())
     }
 }
