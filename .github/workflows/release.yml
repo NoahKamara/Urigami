@@ -13,9 +13,9 @@ jobs:
       - name: Setup Swift
         uses: swift-actions/setup-swift@v2.2.0
         with:
-          swift-version: "6.0.0" 
+          swift-version: "6.0.3" 
       - name: Get swift version
-        run: swift --version # Swift 5.1.0
+        run: swift --version
       - name: Build executable for release
         run: swift build -c release --arch arm64 --arch x86_64 --product urigami
       - name: Compress archive
