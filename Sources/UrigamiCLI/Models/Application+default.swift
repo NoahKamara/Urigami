@@ -1,8 +1,7 @@
 //
 //  Application+default.swift
-//  urigami
 //
-//  Created by Noah Kamara on 26.01.2025.
+//  Copyright © 2024 Noah Kamara.
 //
 
 import AppKit
@@ -64,13 +63,13 @@ extension Application {
                 throw ValidationError("Neither URL nor scheme: '\(rawValue)'")
             }
 
-            return all(opening: url)
+            return self.all(opening: url)
 
         case .mime:
             guard let utType = UTType(mimeType: rawValue) else {
                 throw ValidationError("Unknown mime type '\(rawValue)'")
             }
-            return all(opening: utType)
+            return self.all(opening: utType)
 
         case .fileExtension:
             let utType = UTType(filenameExtension: String(rawValue.trimmingPrefix(".")))
@@ -78,16 +77,16 @@ extension Application {
             guard let utType else {
                 throw ValidationError("Unknown file extension '\(rawValue)'")
             }
-            return all(opening: utType)
+            return self.all(opening: utType)
 
         case .identifier:
             guard let utType = UTType(rawValue) else {
                 throw ValidationError("Unknown type identifier '\(rawValue)'")
             }
-            return all(opening: utType)
+            return self.all(opening: utType)
         }
     }
-    
+
     func set(
         rawValue: String,
         kind: InputKind,

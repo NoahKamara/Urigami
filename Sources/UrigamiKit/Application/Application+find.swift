@@ -1,8 +1,7 @@
 //
 //  Application+find.swift
-//  urigami
 //
-//  Created by Noah Kamara on 26.01.2025.
+//  Copyright © 2024 Noah Kamara.
 //
 
 import Foundation
@@ -68,6 +67,6 @@ struct FileSearch {
     }
 
     mutating func addSource(_ filePath: String, mode: SearchMode = .shallow) {
-        sources.append(.init(filePath: filePath, mode: mode))
+        self.sources.append(.init(filePath: filePath, mode: mode))
     }
 }

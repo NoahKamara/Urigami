@@ -1,8 +1,7 @@
 //
 //  File.swift
-//  urigami
 //
-//  Created by Noah Kamara on 26.01.2025.
+//  Copyright © 2024 Noah Kamara.
 //
 
 import Foundation
@@ -106,10 +105,10 @@ public struct EquivalentTypes: Decodable {
     public init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        extensions = try container
+        self.extensions = try container
             .decodeIfPresent(OneOrMoreList.self, forKey: .extensions)?.values
 
-        mimeTypes = try container
+        self.mimeTypes = try container
             .decodeIfPresent(OneOrMoreList.self, forKey: .mimeTypes)?.values
     }
 
@@ -127,9 +126,9 @@ public struct OneOrMoreList: Decodable {
 
         do {
             let singleValue = try container.decode(String.self)
-            values = [singleValue]
+            self.values = [singleValue]
         } catch {
-            values = try container.decode([String].self)
+            self.values = try container.decode([String].self)
         }
     }
 }
@@ -163,22 +162,22 @@ public struct BundleTypeDeclaration: Decodable {
 
     public init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        identifier = try container
+        self.identifier = try container
             .decodeIfPresent(String.self, forKey: .identifier)
-        conformsToTypes = try container
+        self.conformsToTypes = try container
             .decodeIfPresent(OneOrMoreList.self, forKey: .conformsToTypes)?.values
-        equivalentTypes = try container
+        self.equivalentTypes = try container
             .decodeIfPresent(EquivalentTypes.self, forKey: .equivalentTypes)
-        referenceURL = try container
+        self.referenceURL = try container
             .decodeIfPresent(String.self, forKey: .referenceURL)
-        description = try container
+        self.description = try container
             .decodeIfPresent(String.self, forKey: .description)
 
         if container.contains(.icons) {
             let icon = try container
                 .nestedContainer(keyedBy: Icons.CodingKeys.self, forKey: .icons)
 
-            icons = if !icon.allKeys.isEmpty {
+            self.icons = if !icon.allKeys.isEmpty {
                 try Icons(
                     backgroundName: icon.decodeIfPresent(String.self, forKey: .backgroundName),
                     badgeName: icon.decodeIfPresent(String.self, forKey: .badgeName),
@@ -188,10 +187,10 @@ public struct BundleTypeDeclaration: Decodable {
                 nil
             }
         } else {
-            icons = nil
+            self.icons = nil
         }
 
-        iconLegacy = try container
+        self.iconLegacy = try container
             .decodeIfPresent(String.self, forKey: .iconLegacy)
     }
 

@@ -1,8 +1,7 @@
 //
 //  Input.swift
-//  urigami
 //
-//  Created by Noah Kamara on 26.01.2025.
+//  Copyright © 2024 Noah Kamara.
 //
 
 import ArgumentParser
@@ -29,7 +28,7 @@ struct Input: ParsableArguments {
 
     mutating func validate() throws {
         guard let kind = InputKind(forInput: input) else {
-            throw ValidationError("'\(input)' isn't a valid input")
+            throw ValidationError("'\(self.input)' isn't a valid input")
         }
 
         self.kind = kind

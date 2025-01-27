@@ -1,8 +1,8 @@
-// The Swift Programming Language
-// https://docs.swift.org/swift-book
 //
-// Swift Argument Parser
-// https://swiftpackageindex.com/apple/swift-argument-parser/documentation
+//  UrigamiCLI.swift
+//
+//  Copyright © 2024 Noah Kamara.
+//
 
 import AppKit
 import ArgumentParser
@@ -19,8 +19,7 @@ struct UrigamiCLI: AsyncParsableCommand {
         subcommands: [
             GetOpeningAppsCommand.self,
             AppInfoCommand.self,
-            SetOpeningAppCommand.self
+            SetOpeningAppCommand.self,
         ]
     )
 }
-

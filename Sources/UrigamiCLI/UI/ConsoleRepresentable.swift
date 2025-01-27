@@ -1,8 +1,7 @@
 //
-//  File 2.swift
-//  urigami
+//  ConsoleRepresentable.swift
 //
-//  Created by Noah Kamara on 26.01.2025.
+//  Copyright © 2024 Noah Kamara.
 //
 
 import ConsoleKitTerminal
@@ -17,10 +16,10 @@ extension ConsoleText: ConsoleRepresentable {
 
 extension Console {
     func output(_ content: some ConsoleRepresentable, newLine: Bool) {
-        output(content.consoleRepresentation(), newLine: newLine)
+        self.output(content.consoleRepresentation(), newLine: newLine)
     }
 
     func output(_ content: some ConsoleRepresentable) {
-        output(content.consoleRepresentation())
+        self.output(content.consoleRepresentation())
     }
 }

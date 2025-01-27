@@ -1,24 +1,23 @@
 //
 //  Application.swift
-//  urigami
 //
-//  Created by Noah Kamara on 26.01.2025.
+//  Copyright © 2024 Noah Kamara.
 //
 
 import Foundation
 
 public struct Application: CustomStringConvertible {
     public var description: String {
-        return "\(name) '\(url.path())'"
+        "\(self.name) '\(self.url.path())'"
     }
 
     /// The name of the application
     /// > the last path component without the extension
     public var name: String {
         String(
-            url
+            self.url
                 .lastPathComponent
-                .prefix((url.lastPathComponent.count - url.pathExtension.count) + 1)
+                .prefix((self.url.lastPathComponent.count - self.url.pathExtension.count) + 1)
         )
     }
 
@@ -30,6 +29,6 @@ public struct Application: CustomStringConvertible {
     }
 
     public func bundle() -> Bundle? {
-        Bundle(url: url)
+        Bundle(url: self.url)
     }
 }

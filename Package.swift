@@ -24,7 +24,7 @@ let package = Package(
             ],
             swiftSettings: [
                 .unsafeFlags(["-enable-bare-slash-regex"]),
-                .unsafeFlags(["-whole-module-optimization", "-O"], .when(configuration: .release))
+                .unsafeFlags(["-whole-module-optimization", "-O"], .when(configuration: .release)),
             ]
         ),
         .target(

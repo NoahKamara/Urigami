@@ -1,8 +1,7 @@
 //
 //  Application+info.swift
-//  urigami
 //
-//  Created by Noah Kamara on 26.01.2025.
+//  Copyright © 2024 Noah Kamara.
 //
 
 import Foundation

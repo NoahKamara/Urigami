@@ -1,8 +1,7 @@
 //
 //  GetOpeningAppsCommand.swift
-//  urigami
 //
-//  Created by Noah Kamara on 26.01.2025.
+//  Copyright © 2024 Noah Kamara.
 //
 
 import ArgumentParser
@@ -21,13 +20,13 @@ struct GetOpeningAppsCommand: AsyncParsableCommand {
     var list = false
 
     func run() throws {
-        let kind = input.kind!
-        let rawValue = input.input
+        let kind = self.input.kind!
+        let rawValue = self.input.input
 
-        if list {
-            try listApps(kind: kind, rawValue: rawValue)
+        if self.list {
+            try self.listApps(kind: kind, rawValue: rawValue)
         } else {
-            try defaultApp(kind: kind, rawValue: rawValue)
+            try self.defaultApp(kind: kind, rawValue: rawValue)
         }
     }
 
@@ -37,7 +36,7 @@ struct GetOpeningAppsCommand: AsyncParsableCommand {
 
         guard let app else {
             console.warning("No default app for \(kind.displayName) '\(rawValue)'")
-            try? listApps(kind: kind, rawValue: rawValue)
+            try? self.listApps(kind: kind, rawValue: rawValue)
             return
         }
 

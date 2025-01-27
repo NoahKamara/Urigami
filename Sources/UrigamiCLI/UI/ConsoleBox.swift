@@ -1,8 +1,7 @@
 //
 //  ConsoleBox.swift
-//  urigami
 //
-//  Created by Noah Kamara on 26.01.2025.
+//  Copyright © 2024 Noah Kamara.
 //
 
 import ConsoleKitTerminal
@@ -25,7 +24,7 @@ struct ConsoleBox: ConsoleRepresentable {
     }
 
     func consoleRepresentation(width: Int? = nil) -> ConsoleText {
-        let undecoratedContentLines = content
+        let undecoratedContentLines = self.content
             .lines()
 
         var maxContentWidth = width.map { $0 - 4 } ?? undecoratedContentLines
@@ -33,11 +32,11 @@ struct ConsoleBox: ConsoleRepresentable {
             .reduce(0, max)
 
         let topLineWidth = [Corner.bottomLeft, .bottomRight]
-            .compactMap { decorations[$0]?.count }
+            .compactMap { self.decorations[$0]?.count }
             .reduce(0, +)
 
         let bottomLineWidth = [Corner.topLeft, .topRight]
-            .compactMap { decorations[$0]?.count }
+            .compactMap { self.decorations[$0]?.count }
             .reduce(0, +)
 
         maxContentWidth = max(
@@ -47,21 +46,21 @@ struct ConsoleBox: ConsoleRepresentable {
 
         let contentLines = undecoratedContentLines
             .map {
-                style.decorate(line: $0, contentWidth: maxContentWidth)
+                self.style.decorate(line: $0, contentWidth: maxContentWidth)
             }
 
         let boxWidth = maxContentWidth + 4
 
-        let headerLine = style.top(
+        let headerLine = self.style.top(
             contentWidth: boxWidth,
-            leftDeco: decorations[.topLeft],
-            rightDeco: decorations[.topRight]
+            leftDeco: self.decorations[.topLeft],
+            rightDeco: self.decorations[.topRight]
         )
 
-        let footerLine = style.bottom(
+        let footerLine = self.style.bottom(
             contentWidth: boxWidth,
-            leftDeco: decorations[.bottomLeft],
-            rightDeco: decorations[.bottomRight]
+            leftDeco: self.decorations[.bottomLeft],
+            rightDeco: self.decorations[.bottomRight]
         )
 
         let outputFragments: [ConsoleText] = ([headerLine] + contentLines + [footerLine])
@@ -70,7 +69,7 @@ struct ConsoleBox: ConsoleRepresentable {
     }
 
     func consoleRepresentation() -> ConsoleText {
-        consoleRepresentation(width: nil)
+        self.consoleRepresentation(width: nil)
     }
 }
 
@@ -151,7 +150,7 @@ struct ConsoleBoxStyle {
     }
 
     subscript(dynamicMember keyPath: KeyPath<BoxDrawingSymbols, Character>) -> Character {
-        symbols[keyPath: keyPath]
+        self.symbols[keyPath: keyPath]
     }
 }
 
@@ -162,10 +161,10 @@ private extension ConsoleBoxStyle {
         rightDeco: String?
     ) -> String {
         let leftDeco = leftDeco
-            .map { symbols.horizontalLeftHalf + $0 + symbols.horizontalRightHalf } ?? ""
+            .map { self.symbols.horizontalLeftHalf + $0 + self.symbols.horizontalRightHalf } ?? ""
 
         let rightDeco = rightDeco
-            .map { symbols.horizontalLeftHalf + $0 + symbols.horizontalRightHalf } ?? ""
+            .map { self.symbols.horizontalLeftHalf + $0 + self.symbols.horizontalRightHalf } ?? ""
 
         let contentWidth = width - (leftDeco.count + rightDeco.count)
         let line = String(repeating: symbols.horizontal, count: contentWidth)
@@ -178,7 +177,7 @@ private extension ConsoleBoxStyle {
         leftDeco: String?,
         rightDeco: String?
     ) -> ConsoleText {
-        let line = hLine(
+        let line = self.hLine(
             width: contentWidth,
             leftDeco: leftDeco,
             rightDeco: rightDeco
@@ -186,8 +185,8 @@ private extension ConsoleBoxStyle {
 
         return ConsoleText(fragments: [
             ConsoleTextFragment(
-                string: symbols.topLeft + line + symbols.topRight,
-                style: style
+                string: self.symbols.topLeft + line + self.symbols.topRight,
+                style: self.style
             ),
         ])
     }
@@ -197,7 +196,7 @@ private extension ConsoleBoxStyle {
         leftDeco: String?,
         rightDeco: String?
     ) -> ConsoleText {
-        let line = hLine(
+        let line = self.hLine(
             width: contentWidth,
             leftDeco: leftDeco,
             rightDeco: rightDeco
@@ -205,15 +204,15 @@ private extension ConsoleBoxStyle {
 
         return ConsoleText(fragments: [
             ConsoleTextFragment(
-                string: symbols.bottomLeft + line + symbols.bottomRight,
-                style: style
+                string: self.symbols.bottomLeft + line + self.symbols.bottomRight,
+                style: self.style
             ),
         ])
     }
 
     func decorate(line: ConsoleText, contentWidth: Int) -> ConsoleText {
         var fragments = [
-            ConsoleTextFragment(string: symbols.vertical + " ", style: style),
+            ConsoleTextFragment(string: symbols.vertical + " ", style: self.style),
         ]
 
         var cursor = 0
@@ -237,7 +236,10 @@ private extension ConsoleBoxStyle {
             )
         }
 
-        fragments.append(ConsoleTextFragment(string: " " + symbols.vertical, style: style))
+        fragments.append(ConsoleTextFragment(
+            string: " " + self.symbols.vertical,
+            style: self.style
+        ))
         return .init(fragments: fragments)
     }
 }
@@ -248,10 +250,16 @@ extension ConsoleText {
         var currentLine = ConsoleText()
 
         for fragment in fragments {
-            let substrings = fragment.string.split(separator: "\n", omittingEmptySubsequences: false)
+            let substrings = fragment.string.split(
+                separator: "\n",
+                omittingEmptySubsequences: false
+            )
 
             for (index, substring) in substrings.enumerated() {
-                currentLine.fragments.append(ConsoleTextFragment(string: String(substring), style: fragment.style))
+                currentLine.fragments.append(ConsoleTextFragment(
+                    string: String(substring),
+                    style: fragment.style
+                ))
 
                 if index < substrings.count - 1 {
                     lines.append(currentLine)

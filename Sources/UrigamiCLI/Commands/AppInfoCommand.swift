@@ -1,8 +1,7 @@
 //
 //  AppInfoCommand.swift
-//  urigami
 //
-//  Created by Noah Kamara on 26.01.2025.
+//  Copyright © 2024 Noah Kamara.
 //
 
 import ArgumentParser
@@ -24,27 +23,30 @@ struct AppInfoCommand: AsyncParsableCommand {
     func run() throws {
         let console = Terminal()
 
-        let apps = Application.find(nameOrPath)
+        let apps = Application.find(self.nameOrPath)
 
         guard !apps.isEmpty else {
-            console.error("Found no app '\(nameOrPath)'. \n try a relative or absolute path")
+            console.error("Found no app '\(self.nameOrPath)'. \n try a relative or absolute path")
             return
         }
 
         let detailOptions = detailOptions.options
-        
+
         if apps.count == 1 {
             let app = apps[0]
             let detailOptions = detailOptions
 
             try console.output(app.detail(detailOptions))
         } else {
-            console.warning("Found multiple possible matches for '\(nameOrPath)'. \n try a relative or absolute path to be more precise")
+            console
+                .warning(
+                    "Found multiple possible matches for '\(self.nameOrPath)'. \n try a relative or absolute path to be more precise"
+                )
             for app in apps {
                 try console.output(app.detail(.none))
             }
         }
-        
+
         if detailOptions == .none {
             console.hint("see more info using detail commands (or --detail for everything)")
         }
@@ -55,7 +57,10 @@ struct AppDetailSectionOptions: ParsableArguments {
     @Flag(help: .init("all details", discussion: "equivalent to specifying all detail flags"))
     var detail = false
 
-    @Flag(help: .init("declared types", discussion: "equivalent to specify --exported-utis and --imported-utis"))
+    @Flag(help: .init(
+        "declared types",
+        discussion: "equivalent to specify --exported-utis and --imported-utis"
+    ))
     var uti = false
 
     @Flag(help: "exported ut-types")
@@ -73,17 +78,17 @@ struct AppDetailSectionOptions: ParsableArguments {
     var options: AppDetailSections {
         var options = AppDetailSections()
 
-        if detail {
+        if self.detail {
             return AppDetailSections.all
         }
 
-        if uti { options.insert(.types) }
-        else if exportUTI { options.insert(.exportedTypes) }
-        else if importUTI { options.insert(.importedTypes) }
+        if self.uti { options.insert(.types) }
+        else if self.exportUTI { options.insert(.exportedTypes) }
+        else if self.importUTI { options.insert(.importedTypes) }
 
-        if doc { options.insert(.documents) }
+        if self.doc { options.insert(.documents) }
 
-        if url { options.insert(.urls) }
+        if self.url { options.insert(.urls) }
 
         return options
     }

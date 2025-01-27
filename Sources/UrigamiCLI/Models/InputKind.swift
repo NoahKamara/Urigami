@@ -1,8 +1,7 @@
 //
 //  InputKind.swift
-//  urigami
 //
-//  Created by Noah Kamara on 26.01.2025.
+//  Copyright © 2024 Noah Kamara.
 //
 
 enum InputKind {
@@ -38,7 +37,9 @@ enum InputKind {
 private extension String {
     /// checks the string conforms to the format of a uniform type identifier
     ///
-    /// > The identifier must contain only alphanumeric characters (a–z, A–Z, and 0–9), hyphens (-), and periods (.). For example, you might use com.example.greatAppDocument or com.example.greatApp-document for the
+    /// > The identifier must contain only alphanumeric characters (a–z, A–Z, and 0–9), hyphens (-),
+    /// and periods (.). For example, you might use com.example.greatAppDocument or
+    /// com.example.greatApp-document for the
     /// > [Apple Documentation](https://developer.apple.com/documentation/uniformtypeidentifiers/defining-file-and-data-types-for-your-app)
     func isUniformTypeIdentifier() -> Bool {
         wholeMatch(of: /[\w,\d][\w,\d,\-,\.]*/) != nil

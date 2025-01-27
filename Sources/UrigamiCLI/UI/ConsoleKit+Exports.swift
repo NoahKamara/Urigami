@@ -1,8 +1,7 @@
 //
 //  ConsoleKit+Exports.swift
-//  urigami
 //
-//  Created by Noah Kamara on 26.01.2025.
+//  Copyright © 2024 Noah Kamara.
 //
 
 import ConsoleKitTerminal
@@ -12,7 +11,7 @@ typealias Terminal = ConsoleKitTerminal.Terminal
 
 extension ConsoleText {
     mutating func appendLine(_ value: ConsoleRepresentable) {
-        appendLine(value.consoleRepresentation())
+        self.appendLine(value.consoleRepresentation())
     }
 
     mutating func appendLine(_ text: ConsoleText) {
@@ -49,10 +48,10 @@ extension ConsoleText.StringInterpolation {
     ) {
         if let value = optional {
             appendLiteral("'")
-            appendInterpolation(value, style: style)
+            self.appendInterpolation(value, style: style)
             appendLiteral("'")
         } else {
-            appendInterpolation("None", style: style)
+            self.appendInterpolation("None", style: style)
         }
     }
 }
@@ -63,10 +62,11 @@ extension ConsoleStyle {
         isBold: false
     )
 }
+
 extension Console {
     func hint(_ text: String, newLine: Bool = true) {
         output(
-            ("[i] "+text).consoleText(.tip),
+            ("[i] " + text).consoleText(.tip),
             newLine: newLine
         )
     }
