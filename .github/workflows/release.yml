@@ -17,9 +17,20 @@ jobs:
           swift-version: "6.0.2" 
       - name: Get swift version
         run: swift --version
+
+      - name: Build arm64 executable
+        run: swift build -c release --arch arm64 --product urigami
+      - name: Build x86_64 executable and create universal binary
+        run: swift build -c release --arch arm64 --product urigami
       - name: Build executable for release
-        run: swift build -c release --arch arm64 --arch x86_64 --product urigami
-      - name: Compress archive
+        run: |
+          lipo -create \
+            .build/arm64-apple-macosx/release/urigami \
+            .build/x86_64-apple-macosx/release/urigami \
+            -output ./urigami-universal
+          
+          # Verify architectures
+          lipo -info ./urigami-universalive
         run: tar -czf ${{ github.ref_name }}.tar.gz -C .build/apple/Products/Release urigami
       - name: Release
         uses: softprops/action-gh-release@v1
