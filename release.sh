@@ -22,6 +22,16 @@ echo "VERSION is set to: $VERSION"
 printf "Building $VERSION"
 ./build.sh || exit 1
 
+# Test Version
+TEST_VERSION="$(./urigami --version)"
+
+if [ "v$TEST_VERSION" = "$VERSION" ]; then
+  echo "Test OK: 'v$TEST_VERSION'"
+else
+  echo "Version mismatch 'v$TEST_VERSION' != '$VERSION'"
+  exit 1
+fi
+
 printf "Compressing"
 tar -czf "$VERSION.tar.gz" -C urigami
 
