@@ -43,7 +43,7 @@ struct GetOpeningAppsCommand: AsyncParsableCommand {
 
         console.info("Default app for \(kind.displayName) '\(rawValue)':")
         try console.output(app.detail(.none))
-        console.info("use `urigami appinfo \"\(app.name)\"` to view details")
+        console.hint("use `urigami appinfo \"\(app.name)\"` to view details")
     }
 
     func listApps(kind: InputKind, rawValue: String) throws {

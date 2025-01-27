@@ -31,9 +31,11 @@ struct AppInfoCommand: AsyncParsableCommand {
             return
         }
 
+        let detailOptions = detailOptions.options
+        
         if apps.count == 1 {
             let app = apps[0]
-            let detailOptions = detailOptions.options
+            let detailOptions = detailOptions
 
             try console.output(app.detail(detailOptions))
         } else {
@@ -41,6 +43,10 @@ struct AppInfoCommand: AsyncParsableCommand {
             for app in apps {
                 try console.output(app.detail(.none))
             }
+        }
+        
+        if detailOptions == .none {
+            console.hint("see more info using detail commands (or --detail for everything)")
         }
     }
 }

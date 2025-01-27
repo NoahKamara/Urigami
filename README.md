@@ -9,6 +9,7 @@ Urigami is a command-line utility for managing default applications on macOS. It
 ```bash
 brew install noahkamara/homebrew-tap/urigami
 ```
+
 ### Build
 
 ```bash
@@ -31,10 +32,22 @@ urigami <subcommand>
 
 ## Examples
 
+Show metadata for Preview.app including
+
 ```bash
-urigami opens .png # show applications that can open .png files
-urigami appinfo Preview # show info for Preview.app
-urigami setdefault .pdf Arc # open pdf files in Arc by default
+urigami appinfo Preview --uti 
+```
+
+Show applications that can open .png files
+
+```bash
+urigami opens .png 
+```
+
+Open pdf files in Arc by default
+
+```bash
+urigami setdefault .pdf Arc 
 ```
 
 ## Contributing

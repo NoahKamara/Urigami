@@ -56,3 +56,18 @@ extension ConsoleText.StringInterpolation {
         }
     }
 }
+
+extension ConsoleStyle {
+    static let tip = ConsoleStyle(
+        color: .brightBlue,
+        isBold: false
+    )
+}
+extension Console {
+    func hint(_ text: String, newLine: Bool = true) {
+        output(
+            ("[i] "+text).consoleText(.tip),
+            newLine: newLine
+        )
+    }
+}
