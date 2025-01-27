@@ -31,6 +31,7 @@ jobs:
           
           # Verify architectures
           lipo -info ./urigami-universalive
+      - name: Compress archive
         run: tar -czf ${{ github.ref_name }}.tar.gz -C .build/apple/Products/Release urigami
       - name: Release
         uses: softprops/action-gh-release@v1
