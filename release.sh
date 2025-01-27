@@ -32,8 +32,11 @@ if $PUSH; then
   echo "Pushing Tag $VERION"
   git push origin "$VERSION"
 
-  brew create https://github.com/noahkamara/urigami/archive/refs/tags/$VERSION.tar.gz \
-    --tap noahkamara/homebrew-tap \
-    --set-license MIT \
-    --set-name urigami
+  cd $(brew --repo)/Library/Taps/noahkamara/homebrew-tap || exit 1
+
+  ./release.sh urigami
+
+  git add Formula/urigami.rb
+  git commit -m "update(urigami): $VERSION"
+  git push origin
 fi
