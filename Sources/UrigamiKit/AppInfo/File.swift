@@ -38,7 +38,7 @@ public struct InfoPlist: Decodable {
 
 public struct BundleURLType: Decodable {
     /// URL Identifier
-    public let identifier: String
+    public let identifier: String?
     /// URL Schemes
     public let schemes: [String]
     /// role

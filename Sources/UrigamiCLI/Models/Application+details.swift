@@ -334,7 +334,7 @@ extension Application {
                 documentContent.append(ConsoleBox(
                     style: .init(symbols: .arc),
                     decorations: [
-                        .topLeft: type.identifier,
+                        .topLeft: type.identifier ?? "BundleURL",
                     ],
                     content: content
                 ).consoleRepresentation())
